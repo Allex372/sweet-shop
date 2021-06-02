@@ -1,0 +1,47 @@
+<div class="header__main-div">
+  <div class="header__left">
+    <div class="header__text">
+      Розпродажа
+      <div [ngClass]="sale?'header__circle':'none'">{{sale}}</div>
+    </div>
+    <div class="header__text">
+      Новинки
+      <div [ngClass]="news?'header__circle news':'none'">{{news}}</div>
+    </div>
+    <div class="header__text">
+      Поповнення товарів
+      <div [ngClass]="prod?'header__circle prod':'none'">{{prod}}</div>
+    </div>
+    <hr class="border"/>
+    <div class="header__text">
+      ТТН
+      <div [ngClass]="ttn?'header__circle ttn':'none'">{{ttn}}</div>
+    </div>
+    <div class="header__text">
+      Замовлення
+      <div [ngClass]="order?'header__circle order':'none'">{{order}}</div>
+    </div>
+    <hr class="border"/>
+    <div class="header__text">Канали збуту</div>
+  </div>
+  <div class="header__right">
+    <div class="header__square">
+      <img src="assets/img/header/Basket.svg">
+    </div>
+    <div class="header__square">
+      <img src="assets/img/header/Message.svg">
+    </div>
+    <div class="header__square">
+      <img src="assets/img/header/Notification.svg">
+    </div>
+    <div class="header__square">
+      <img src="assets/img/header/Help.svg">
+    </div>
+    <div class="header__square">
+      <img src="assets/img/header/Language.svg">
+    </div>
+    <div>
+      <img src="assets/img/header/img.svg">
+    </div>
+  </div>
+</div>

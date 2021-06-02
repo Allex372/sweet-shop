@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+*{
+  padding: 0;
+  margin: 0;
+  background: #F8F8F8;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #EFF0F6;
+}
+
+body::-webkit-scrollbar {
+  width: 4px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #FFFFFF;
+  border: 0.5px solid #E1E1E1;
+  box-sizing: border-box;
+  border-radius: 60px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #BDBDBD;
+  border-radius: 60px;
+}
