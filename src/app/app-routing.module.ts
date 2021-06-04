@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {ImportPageComponent} from './components/pages/import-page/import-page.component';
 
 const routes: Routes = [
-  // {
-  //   path: 'about_us',
-  //   component: ,
-  // },
-  // {
-  //   path: '',
-  //   redirectTo: 'courses',
-  //   pathMatch: 'full'
-  // }
+  {
+    path: 'import',
+    component: ImportPageComponent,
+  },
 ];
 
 @NgModule({
@@ -18,3 +14,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
+export const routingComponents = [ImportPageComponent];

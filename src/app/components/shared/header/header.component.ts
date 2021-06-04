@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import axios from 'axios';
 
 @Component({
   selector: 'app-header',
@@ -47,6 +48,9 @@ export class HeaderComponent implements OnInit {
         this.order = el;
       }
     }
+
+    const all = axios.get('http://localhost:5000/products');
+    console.log(all);
   }
 
 }
