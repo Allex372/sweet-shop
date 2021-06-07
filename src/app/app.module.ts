@@ -6,6 +6,10 @@ import {AppRoutingModule, routingComponents} from './app-routing.module';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { SideBarComponent } from './components/shared/side-bar/side-bar.component';
 import { LoginationComponent } from './components/logination/logination/logination.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { AuthInterceptor } from './services/auth.interceptor';
+import { ProductListComponent } from './components/pages/product-list/product-list.component';
+
 
 @NgModule({
   declarations: [
@@ -13,13 +17,21 @@ import { LoginationComponent } from './components/logination/logination/loginati
     HeaderComponent,
     SideBarComponent,
     routingComponents,
-    LoginationComponent
+    LoginationComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi   : true,
+    }
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

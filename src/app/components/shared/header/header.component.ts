@@ -48,9 +48,6 @@ export class HeaderComponent implements OnInit {
         this.order = el;
       }
     }
-
-    const all = axios.get('http://localhost:5000/products');
-    console.log(all);
   }
 
 }
