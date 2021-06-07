@@ -3,10 +3,13 @@ import {Observable} from 'rxjs';
 import {ILogin, IToken} from '../models';
 import {HttpClient} from '@angular/common/http';
 import {take, tap} from 'rxjs/operators';
+import {FormControl} from '@angular/forms';
+import constants from '../constants/constants';
+import axios, {AxiosResponse} from 'axios';
 
 
 const enum endpoint {
-  login = 'auth/',
+  login = 'auth',
   refresh = 'auth/refresh/',
 }
 
@@ -22,16 +25,15 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {
   }
 
-  login(body: ILogin): Observable<IToken> {
-    return this.httpClient.post<IToken>(`${this.URL}${endpoint.login}`, body)
-      .pipe(
-        tap((tokens: IToken) => this.setTokens(tokens))
-      );
+  // @ts-ignore
+  async login(body: {email: FormControl; password: FormControl }): void {
+    const data = await axios.post(`${constants.URL}/auth`, body);
+    this.setTokens(data.data);
   }
 
   refreshToken(): Observable<IToken> {
     console.log('***refresh token***');
-    return this.httpClient.post<IToken>(`${this.URL}${endpoint.refresh}`, {token: this.getRefreshToken()})
+    return this.httpClient.post<IToken>(`${constants.URL}/auth`, {token: this.getRefreshToken()})
       .pipe(
         tap((tokens: IToken) => this.setTokens(tokens))
       );

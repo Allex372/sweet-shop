@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ILogin, IToken} from '../../../models';
 import {AuthService, UserService} from '../../../services';
@@ -15,8 +15,13 @@ export class LoginationComponent implements OnInit {
   message: string;
   auth: ILogin;
   token: IToken;
-  password = null;
-  email = null;
+  password = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  repeatPassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  email = new FormControl('', [Validators.required]);
+  form = new FormGroup({
+    password: this.password,
+    email: this.email,
+  });
 
   constructor(private authService: AuthService, private userService: UserService, private router: Router) {
   }
@@ -36,18 +41,8 @@ export class LoginationComponent implements OnInit {
 
   Send(e: Event): void {
     e.preventDefault();
-    this.auth = {password: this.password, email: this.email};
-    this.authService.login(this.auth).subscribe((value) => {
-      console.log(value, 'log');
-      this.router.navigate(['']);
-      this.userService.setUserId(value.user_id);
-    }, (error) => {
-      console.log('*error*');
-      this.error = error.error;
-      this.message = error.error.message;
-      console.log(this.message, 'error');
-    });
-
+    const user = {email: this.email, password: this.password};
+    this.authService.login(user);
   }
 
   forgotLink(): void {

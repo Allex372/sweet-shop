@@ -9,6 +9,7 @@ import { LoginationComponent } from './components/logination/logination/loginati
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { ProductListComponent } from './components/pages/product-list/product-list.component';
+import {TokenInterceptor} from './services';
 
 
 @NgModule({
@@ -27,9 +28,9 @@ import { ProductListComponent } from './components/pages/product-list/product-li
   ],
   providers: [
     {
-      provide : HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi   : true,
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: TokenInterceptor,
     }
   ],
   bootstrap: [AppComponent],

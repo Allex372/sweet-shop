@@ -9,7 +9,7 @@ import {catchError, switchMap} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class TokenInterceptorService implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -38,7 +38,7 @@ export class TokenInterceptorService implements HttpInterceptor {
           return res.error;
         }
         console.log('***403***');
-        this.router.navigate(['/login'], {
+        this.router.navigate(['error/not/auth'], {
           queryParams: {
             sessionFiled: true
           }

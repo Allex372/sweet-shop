@@ -15,7 +15,7 @@ export class ProductsService {
 
   // tslint:disable-next-line:typedef
   static async getAllProducts(){
-    return await axios.get(`${constants.URL}/${constants.products}`);
+    return  await axios.get(`${constants.URL}/${constants.products}`);
   }
 
 }
