@@ -10,6 +10,11 @@ const routes: Routes = [
     component: ImportPageComponent,
   },
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
     path: 'login',
     component: LoginationComponent,
   },

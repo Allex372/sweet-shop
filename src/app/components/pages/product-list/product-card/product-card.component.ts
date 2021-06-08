@@ -13,19 +13,12 @@ export class ProductCardComponent implements OnInit {
   }
 
   @Input()
-  description;
-  @Input()
-  name;
-  @Input()
-  photos;
-  @Input()
-  price;
-  @Input()
-  id;
+  data;
 
   // tslint:disable-next-line:typedef
 
   ngOnInit(): void {
   }
+
 
 }
