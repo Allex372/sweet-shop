@@ -27,8 +27,9 @@ constructor(private authService: AuthService, private router: Router, private ac
   private getData(): void {
     ProductsService.getAllProducts().then((value) => {
       this.data = value.data;
+      // @ts-ignore
       for (const datum of this.data) {
-        for (let photos of datum.photos) {
+        for (const photos of datum.photos) {
           const newPath = constants.URL + '/' + photos;
           console.log(newPath);
         }
