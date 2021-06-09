@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {SidebarMenuItems} from '../../../constants/sidebar-Menu-items';
 
 @Component({
   selector: 'app-side-bar',
@@ -7,9 +8,12 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SideBarComponent implements OnInit {
 
-  arrowState = false;
+  sidebar = SidebarMenuItems;
+
   arrowState1 = false;
   arrowState2 = false;
+  arrowState3 = false;
+  arrowState = false;
 
 
   constructor() {
@@ -18,15 +22,10 @@ export class SideBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  arrowClick(e: Event): void {
-    this.arrowState = !this.arrowState;
-  }
-
-  arrowClick1(e: Event): void {
-    this.arrowState1 = !this.arrowState1;
-  }
-
-  arrowClick2(e: Event): void {
-    this.arrowState2 = !this.arrowState2;
+  arrowClick(e: Event, id): void {
+    if (id === 1){
+      this.arrowState = !this.arrowState;
+      console.log(this.arrowState);
+    }
   }
 }

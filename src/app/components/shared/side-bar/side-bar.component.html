@@ -9,159 +9,158 @@
   </div>
   <div class="sidebar__bottom">
     <div class="sidebar__wrapper">
-      <div class="bottom__flex">
-        <div class="bottom__flex-left" (click)="arrowClick($event)">
-          <img src="../../../../assets/img/sidebar/Basket.svg"/>
-          Товари
+      <div class="bottom__flex" *ngFor="let item of sidebar" [id]="item.id">
+        <div class="bottom__flex-left" (click)="arrowClick($event, item.id)">
+          <img [src]="item.img"/>
+          {{item.title}}
         </div>
-        <div class="bottom__flex-right">
-          <img [ngClass]="arrowState?'rotate':''" (click)="arrowClick($event)"
+        <div [ngClass]="item.hasSubmenu?'bottom__flex-right':'bottom__drop-down-none'">
+          <img [ngClass]="arrowState[item.id]?'rotate':''" (click)="arrowClick($event, item.id)"
                src="../../../../assets/img/sidebar/Down-errow.svg">
         </div>
       </div>
-      <div [ngClass]="arrowState?'bottom__drop-down':'bottom__drop-down-none'">
-        <div class="bottom__drop-down-inside">
-          Каталог
-        </div>
-        <div class="bottom__drop-down-inside">
-          Инвентари
-        </div>
-        <div class="bottom__drop-down-inside">
-          Избранное
-        </div>
-        <div class="bottom__drop-down-inside">
-          Проблемные товары
-        </div>
-        <div class="bottom__drop-down-inside">
-          Импорт
-        </div>
-        <div class="bottom__drop-down-inside">
-          Экспорт
-        </div>
-        <div class="bottom__drop-down-inside">
-          Ценовые правила
-        </div>
-        <div class="bottom__drop-down-inside">
-          Каналы сбыта
-        </div>
-      </div>
-    </div>
-    <div class="sidebar__wrapper">
-      <div class="bottom__flex hover">
-        <div class="bottom__flex-left" (click)="arrowClick1($event)">
-          <img src="../../../../assets/img/sidebar/Orders.svg"/>
-          Замовлення
-        </div>
-        <div class="bottom__flex-right">
-          <img [ngClass]="arrowState1?'rotate':''" (click)="arrowClick1($event)"
-               src="../../../../assets/img/sidebar/Down-errow.svg">
-        </div>
-      </div>
-      <div [ngClass]="arrowState1?'bottom__drop-down':'bottom__drop-down-none'">
-        <div class="bottom__drop-down-inside">
-          Каталог
-        </div>
-        <div class="bottom__drop-down-inside">
-          Инвентари
-        </div>
-        <div class="bottom__drop-down-inside">
-          Избранное
-        </div>
-        <div class="bottom__drop-down-inside">
-          Проблемные товары
-        </div>
-        <div class="bottom__drop-down-inside" routerLink="/import">
-          Импорт
-        </div>
-        <div class="bottom__drop-down-inside">
-          Экспорт
-        </div>
-        <div class="bottom__drop-down-inside">
-          Ценовые правила
-        </div>
-        <div class="bottom__drop-down-inside">
-          Каналы сбыта
-        </div>
-      </div>
-    </div>
-    <div class="bottom__flex">
-      <div class="bottom__flex-left">
-        <img src="../../../../assets/img/sidebar/Posting.svg"/>
-        Відкладений постинг
-      </div>
-    </div>
-    <div class="bottom__flex">
-      <div class="bottom__flex-left">
-        <img src="../../../../assets/img/sidebar/Synchronization.svg"/>
-        Синхронізація
-      </div>
-    </div>
-    <div class="bottom__flex">
-      <div class="bottom__flex-left">
-        <img src="../../../../assets/img/sidebar/Message.svg"/>
-        Повідомлення
-      </div>
-    </div>
-    <div class="bottom__flex">
-      <div class="bottom__flex-left">
-        <img src="../../../../assets/img/sidebar/Employee.svg"/>
-        Співробітники
-      </div>
-    </div>
-    <div class="sidebar__wrapper">
-      <div class="bottom__flex">
-        <div class="bottom__flex-left" (click)="arrowClick2($event)">
-          <img src="../../../../assets/img/sidebar/Settings.svg"/>
-          Налаштування
-        </div>
-        <div class="bottom__flex-right" (click)="arrowClick2($event)">
-          <img [ngClass]="arrowState2?'rotate':''" src="../../../../assets/img/sidebar/Down-errow.svg">
-        </div>
-      </div>
-      <div [ngClass]="arrowState2?'bottom__drop-down':'bottom__drop-down-none'">
-        <div class="bottom__drop-down-inside">
-          Каталог
-        </div>
-        <div class="bottom__drop-down-inside">
-          Инвентари
-        </div>
-        <div class="bottom__drop-down-inside">
-          Избранное
-        </div>
-        <div class="bottom__drop-down-inside">
-          Проблемные товары
-        </div>
-        <div class="bottom__drop-down-inside">
-          Импорт
-        </div>
-        <div class="bottom__drop-down-inside">
-          Экспорт
-        </div>
-        <div class="bottom__drop-down-inside">
-          Ценовые правила
-        </div>
-        <div class="bottom__drop-down-inside">
-          Каналы сбыта
-        </div>
-        <div class="bottom__flex">
-          <div class="bottom__flex-left">
-            <img src="../../../../assets/img/sidebar/Stoplist.svg"/>
-            Чорний список
-          </div>
-        </div>
-        <div class="bottom__flex">
-          <div class="bottom__flex-left">
-            <img src="../../../../assets/img/sidebar/News.svg"/>
-            Новини
-          </div>
-        </div>
-        <div class="bottom__flex">
-          <div class="bottom__flex-left">
-            <img src="../../../../assets/img/sidebar/Help.svg"/>
-            Допомога
-          </div>
-        </div>
-      </div>
+      <!--      <div [ngClass]="arrowState?'bottom__drop-down':'bottom__drop-down-none'">-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Каталог-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Инвентари-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Избранное-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Проблемные товары-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Импорт-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Экспорт-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Ценовые правила-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Каналы сбыта-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--    </div>-->
+      <!--    <div class="sidebar__wrapper">-->
+      <!--      <div class="bottom__flex hover">-->
+      <!--        <div class="bottom__flex-left" (click)="arrowClick1($event)">-->
+      <!--          <img src="../../../../assets/img/sidebar/Orders.svg"/>-->
+      <!--          Замовлення-->
+      <!--        </div>-->
+      <!--        <div class="bottom__flex-right">-->
+      <!--          <img [ngClass]="arrowState1?'rotate':''" (click)="arrowClick1($event)"-->
+      <!--               src="../../../../assets/img/sidebar/Down-errow.svg">-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--      <div [ngClass]="arrowState1?'bottom__drop-down':'bottom__drop-down-none'">-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Каталог-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Инвентари-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Избранное-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Проблемные товары-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside" routerLink="/import">-->
+      <!--          Импорт-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Экспорт-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Ценовые правила-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Каналы сбыта-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--    </div>-->
+      <!--    <div class="bottom__flex">-->
+      <!--      <div class="bottom__flex-left">-->
+      <!--        <img src="../../../../assets/img/sidebar/Posting.svg"/>-->
+      <!--        Відкладений постинг-->
+      <!--      </div>-->
+      <!--    </div>-->
+      <!--    <div class="bottom__flex">-->
+      <!--      <div class="bottom__flex-left">-->
+      <!--        <img src="../../../../assets/img/sidebar/Synchronization.svg"/>-->
+      <!--        Синхронізація-->
+      <!--      </div>-->
+      <!--    </div>-->
+      <!--    <div class="bottom__flex">-->
+      <!--      <div class="bottom__flex-left">-->
+      <!--        <img src="../../../../assets/img/sidebar/Message.svg"/>-->
+      <!--        Повідомлення-->
+      <!--      </div>-->
+      <!--    </div>-->
+      <!--    <div class="bottom__flex">-->
+      <!--      <div class="bottom__flex-left">-->
+      <!--        <img src="../../../../assets/img/sidebar/Employee.svg"/>-->
+      <!--        Співробітники-->
+      <!--      </div>-->
+      <!--    </div>-->
+      <!--    <div class="sidebar__wrapper">-->
+      <!--      <div class="bottom__flex">-->
+      <!--        <div class="bottom__flex-left" (click)="arrowClick2($event)">-->
+      <!--          <img src="../../../../assets/img/sidebar/Settings.svg"/>-->
+      <!--          Налаштування-->
+      <!--        </div>-->
+      <!--        <div class="bottom__flex-right" (click)="arrowClick2($event)">-->
+      <!--          <img [ngClass]="arrowState2?'rotate':''" src="../../../../assets/img/sidebar/Down-errow.svg">-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--      <div [ngClass]="arrowState2?'bottom__drop-down':'bottom__drop-down-none'">-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Каталог-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Инвентари-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Избранное-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Проблемные товары-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Импорт-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Экспорт-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Ценовые правила-->
+      <!--        </div>-->
+      <!--        <div class="bottom__drop-down-inside">-->
+      <!--          Каналы сбыта-->
+      <!--        </div>-->
+      <!--        <div class="bottom__flex">-->
+      <!--          <div class="bottom__flex-left">-->
+      <!--            <img src="../../../../assets/img/sidebar/Stoplist.svg"/>-->
+      <!--            Чорний список-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--        <div class="bottom__flex">-->
+      <!--          <div class="bottom__flex-left">-->
+      <!--            <img src="../../../../assets/img/sidebar/News.svg"/>-->
+      <!--            Новини-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--        <div class="bottom__flex">-->
+      <!--          <div class="bottom__flex-left">-->
+      <!--            <img src="../../../../assets/img/sidebar/Help.svg"/>-->
+      <!--            Допомога-->
+      <!--          </div>-->
+      <!--        </div>-->
     </div>
   </div>
 </div>
