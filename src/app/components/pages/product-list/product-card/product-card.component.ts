@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {AuthService, ProductsService} from '../../../../services';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -9,7 +9,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class ProductCardComponent implements OnInit {
 
-  wishStyle: false;
+
+  @Output() wishListMass = new EventEmitter();
+  wishList = [];
+
 
   constructor(private authService: AuthService, private router: Router, private activatedRouter: ActivatedRoute) {
   }
@@ -20,11 +23,19 @@ export class ProductCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-  addToWishList(e: Event, id: number): void {
+  addToWishList(e: Event, el: any): void {
+    this.wishListMass.emit(this.wishList);
     // @ts-ignore
-    this.wishStyle = !this.wishStyle;
-    console.log(this.wishStyle);
-    console.log(this.data);
+    el.status = !el.status;
+    if (el.status === true){
+      this.wishList.push(el);
+    } else {
+      this.wishList.map((value) => {
+        if (el._id === value._id){
+          const index = this.wishList.indexOf(value);
+          this.wishList.splice(index, 1);
+        }
+      });
+    }
   }
 }

@@ -24,7 +24,6 @@ export class SideBarComponent implements OnInit {
 
   arrowClick(item): void {
     item.arrowState = !item.arrowState;
-    console.log(item);
   }
 
   navigateTo(item: any): void {

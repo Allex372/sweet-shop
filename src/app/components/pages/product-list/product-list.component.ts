@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService, ProductsService} from '../../../services';
 import constants from '../../../constants/constants';
@@ -14,6 +14,9 @@ export class ProductListComponent implements OnInit{
   newPath: string;
   photos: [];
 
+
+  @Output() dataMass = new EventEmitter();
+
   ngOnInit(): boolean {
     this.getData();
     if (!this.authService.isAuthenticated()) {
@@ -28,6 +31,7 @@ constructor(private authService: AuthService, private router: Router, private ac
   private getData(): void {
     ProductsService.getAllProducts().then((value) => {
       this.data = value.data;
+
       // @ts-ignore
       for (const datum of this.data) {
         for (const photos of datum.photos) {
@@ -35,8 +39,12 @@ constructor(private authService: AuthService, private router: Router, private ac
         }
         datum.photos.push(this.newPath);
         datum.photos.splice(0, 1);
+        datum.wishStatus = false;
       }
     });
   }
 
+  mass(object: any): void {
+    this.dataMass.emit(object);
+  }
 }

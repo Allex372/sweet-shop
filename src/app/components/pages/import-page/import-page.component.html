@@ -1,1 +1,376 @@
-<p>import-page works!</p>
+<div class="main-import">
+  <div class="import-top">
+    <p class="import-top-p">Импорт товаров</p>
+    <button class="import-top-btn  btn-bg btn--invers" (click)="addImport()">Добавить</button>
+    <!--    НЕ ВІДОБРАЖАЄТЬСЯ ШРИФТ В КНОКИ CSS-->
+  </div>
+  <div class="import-center-wrapper">
+    <div *ngFor="let id of countImport">
+      <form [id]="id"
+            class="import-center"
+      >
+        <div class="import-center-top">
+          <p class="import-center-top-p">Подготовьте файл импорта следуя <a>инструкции</a></p>
+          <div class="import-btn-wrapper">
+            <button [disabled]="countImport.length<=1" class="import-remove-btn btn-bg btn--min" (click)="removeImport($event,id)">
+              Удалить импорт
+            </button>
+            <button class="import-top-btn  btn-bg btn--invers" (click)="import($event,id)">Начать импорт</button>
+          </div>
+        </div>
+        <div class="import-center-bottom">
+          <div class="import-center-bottom-inside1">
+            <div class="flex">
+              <input class="custom-radio"
+                     [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['download-radio-button']?inputValue[id]['download-radio-button']:true:true:true"
+                     [id]="[id,'1']"
+                     [name]="[id,'download-radio-button']"
+                     type="radio"
+                     (change)="isChangedCheck($event,id)"
+                     [value]="['']">
+              <label [htmlFor]="[id,'1']" class="import-center-bottom-p">Загрузить файл с сервера</label>
+            </div>
+            <div class="flex">
+              <input [id]="[id,'2']" class="custom-radio" type="radio"
+                     [name]="[id,'download-radio-button']"
+                     [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['download-radio-button']?inputValue[id]['download-radio-button']:false:false:false"
+                     name='radio1'
+                     (change)="isChangedCheck($event,id)"
+                     [value]="[true]">
+              <label [htmlFor]="[id,'2']" class="import-center-bottom-p">Загрузить файл с компьютера</label>
+              <img [src]="Info">
+            </div>
+            <div class="btn-div">
+              <button *ngIf="inputValue?inputValue[id]?!inputValue[id]['download-radio-button']:true:true"
+                      class="import-top-btn-white  btn-bg btn--min" (click)="addNewLink(id,$event)">
+                Добавить еще ссылку
+              </button>
+              <button *ngIf="inputValue?inputValue[id]?inputValue[id]['download-radio-button']:false:false"
+                      (click)="addNewFile(id,$event)"
+                      class="import-top-btn-white   btn-bg btn--min">
+                Добавить еще файл
+              </button>
+            </div>
+          </div>
+          <div class="center-inside-wrapper">
+            <div class="new-link-wrapper"
+                 *ngIf="inputValue?inputValue[id]?!inputValue[id]['download-radio-button']:true:true">
+              <div class="child hr-top"
+                   *ngFor="let newLink of inputValue&&inputValue[id]&&inputValue[id]['newLinks']"
+              >
+                <div [id]="[newLink]" class="import-center-bottom-inside2">
+                  <div class="inside-flex-help-wrapper">
+                    <div class="inside-flex">
+                      <div class="input-add-link-wrapper">
+                        <input (input)="setLinkInfo($event,newLink)" [name]="[id,'url']" type="text"
+                               [id]="[newLink,'input1']"
+                               class="input1"
+                               placeholder="Введите ссылку">
+                        <div class="input-add-link-cancel-button" (click)="removeInputValue(newLink,id,$event)">
+                          Oчистить
+                        </div>
+                      </div>
+                      <button class="input-btn">+</button>
+                    </div>
+                    <div class="flex-row">
+                      <p class="p-style">Личные заметки</p>
+                      <button class="input-btn">+</button>
+                    </div>
+                  </div>
+                  <div class="input-flex">
+                    <div class="input-flex-inside">
+                      <input type="text" (input)="setLinkInfo($event,newLink)" [name]="[id,'supplier-name']"
+                             class="input2"
+                             placeholder="Название поставщика *">
+                      <input type="text" (input)="setLinkInfo($event,newLink)" [name]="[id,'supplier-resource']"
+                             class="input2 right-input"
+                             placeholder="Ресурс поставщика *">
+                    </div>
+                    <div>
+                      <button class="delete-icon" [disabled]="inputValue[id]['newLinks'].length<=1"
+                              (click)="removeLink(id,newLink,$event )"><img [src]="Delete" alt="delete"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--        input 2 -->
+            <div class="new-link-wrapper"
+                 *ngIf="inputValue?inputValue[id]?inputValue[id]['download-radio-button']:false:false">
+              <div class="child hr-top" *ngFor="let newFile of inputValue&&inputValue[id]&&inputValue[id]['newFile']">
+                <div [id]="[newFile]"
+                     class="import-center-bottom-inside2">
+                  <div class="inside-flex-help-wrapper">
+                    <div class="inside-flex">
+                      <label class="import-top-btn btn-bg btn--invers">
+                        <input type="file" (change)="addFile($event, id,newFile)" [name]="[id,'input-file']"/>
+                        Загрузить файл
+                      </label>
+                      <span class="file-name">
+                        {{inputFile && inputFile[newFile] && inputFile[newFile].file && inputFile[newFile].file.name && inputFile[newFile].file.name}}
+                      </span>
+                      <div
+                        [ngClass]="inputFile&&inputFile[newFile]&&inputFile[newFile].file&&inputFile[newFile].file.name?'img-position':'display-none'"
+                        (click)="deleteCurrentFile($event,newFile)">
+                        <img [src]="Close">
+                      </div>
+                    </div>
+                    <div class="flex-row">
+                      <p class="p-style">Личные заметки</p>
+                      <button class="input-btn">+</button>
+                    </div>
+                  </div>
+                  <div class="input-flex">
+                    <div class="input-flex-inside">
+                      <input type="text" (input)="setInputOnFIle($event,id,newFile)" [name]="[id,'supplier-name']"
+                             class="input2"
+                             placeholder="Название поставщика *">
+                      <input type="text" (input)="setInputOnFIle($event,id,newFile)" [name]="[id,'supplier-resource']"
+                             class="input2 right-input"
+                             placeholder="Ресурс поставщика *">
+                    </div>
+                    <div>
+                      <button class="delete-icon" [disabled]="inputValue[id]['newFile'].length<=1"
+                              (click)="removeFile(id,newFile,$event )"><img [src]="Delete" alt="delete"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="import-center-bottom-inside3-wrapper">
+              <div class="import-center-bottom-inside3">
+                <div class="setting-import-button" (click)="addSettingDropdown($event,id)">
+                  <p class="p-style">Настройки импорта</p><img
+                  [src]="inputValue?inputValue[id]?inputValue[id]['settingStatus']?Up:Down:Down:Down">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="import-center-bottom-inside4">
+            <div class="flex-row-last">
+              <p class="p-style-last">Как импортировать?</p><img [src]="Info_black">
+            </div>
+            <div>
+              <p class="purple-p">Подробнее об импорте</p>
+              <p class="purple-p">Файлы ХLS, XLSX или CSV</p>
+              <p class="purple-p">Файл XML</p>
+              <p class="purple-p">Файл YML</p>
+              <p class="purple-p">Google файл</p>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="inputValue?inputValue[id]?inputValue[id]['settingStatus']:false:false" class="first-popup-menu">
+          <hr class="hr-big">
+          <div class="popup-menu-style">
+            <div class="popup-left">
+              <p class="popup-p">Информация, которую нужно обновить</p>
+              <div class="checkbox">
+                <div>
+                  <div class="check-wrapper">
+                    <input class="custom-checkbox" type="checkbox" [name]="[id,'name-check']" value="name"
+                           [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['name-check']:false:false"
+                           [id]="[id,'name-check']"
+                           (change)="isCheckBoxChecked(id,$event)">
+                    <label [htmlFor]="[id,'name-check']" class="checkbox-p">Название</label>
+                  </div>
+                  <div class="check-wrapper">
+                    <input class="custom-checkbox" type="checkbox" [id]="[id,'code-check']" [name]="[id,'code-check']"
+                           [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['code-check']:false:false"
+                           value="code"
+                           (change)="isCheckBoxChecked(id,$event)">
+                    <label [htmlFor]="[id,'code-check']" class="checkbox-p">Код товара / Артикул</label>
+                  </div>
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox" [id]="[id,'price-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['price-check']:false:false"
+                                                    [name]="[id,'price-check']"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="price">
+                    <label [htmlFor]="[id,'price-check']" class="checkbox-p">Цена</label>
+                  </div>
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox" [id]="[id,'photo-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['photo-check']:false:false"
+                                                    [name]="[id,'photo-check']"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="photo">
+                    <label [htmlFor]="[id,'photo-check']" class="checkbox-p">Фото</label>
+                  </div>
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox"
+                                                    [id]="[id,'isPresented-check']"
+                                                    [name]="[id,'isPresented-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['isPresented-check']:false:false"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="isPresented">
+                    <label [htmlFor]="[id,'isPresented-check']" class="checkbox-p">Наличие</label>
+                  </div>
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox" [id]="[id,'number-check']"
+                                                    [name]="[id,'number-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['number-check']:false:false"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="number">
+                    <label [htmlFor]="[id,'number-check']" class="checkbox-p">Количество</label>
+                  </div>
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox"
+                                                    [id]="[id,'description-check']"
+                                                    [name]="[id,'description-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['description-check']:false:false"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="description">
+                    <label [htmlFor]="[id,'description-check']" class="checkbox-p">Описание</label>
+                  </div>
+                </div>
+                <div class="checkbox-right">
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox" [id]="[id,'group-check']"
+                                                    [name]="[id,'group-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['group-check']:false:false"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="group">
+                    <label [htmlFor]="[id,'group-check']" class="checkbox-p">Группа</label>
+                  </div>
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox" [id]="[id,'requests-check']"
+                                                    [name]="[id,'requests-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['requests-check']:false:false"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="requests">
+                    <label [htmlFor]="[id,'requests-check']" class="checkbox-p">Поисковые запросы</label>
+                  </div>
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox"
+                                                    [id]="[id,'haracteristic-check']"
+                                                    [name]="[id,'haracteristic-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['haracteristic-check']:false:false"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="haracteristic">
+                    <label [htmlFor]="[id,'haracteristic-check']" class="checkbox-p">Характеристики</label>
+                  </div>
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox" [id]="[id,'sales-check']"
+                                                    [name]="[id,'sales-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['sales-check']:false:false"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="sales">
+                    <label [htmlFor]="[id,'sales-check']" class="checkbox-p">Скидки</label></div>
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox" [id]="[id,'notes-check']"
+                                                    [name]="[id,'notes-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['notes-check']:false:false"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="notes">
+                    <label [htmlFor]="[id,'notes-check']" class="checkbox-p">Личные заметки</label>
+                  </div>
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox"
+                                                    [id]="[id,'code-gtin-check']" [name]="[id,'code-gtin-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['code-gtin-check']:false:false"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="code(GTIN)">
+                    <label [htmlFor]="[id,'code-gtin-check']" class="checkbox-p">Код маркировки (GTIN)</label>
+                  </div>
+                  <div class="check-wrapper"><input class="custom-checkbox" type="checkbox"
+                                                    [id]="[id,'number-mpn-check']" [name]="[id,'number-mpn-check']"
+                                                    [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['number-mpn-check']:false:false"
+                                                    (change)="isCheckBoxChecked(id,$event)"
+                                                    value="number(MPN)">
+                    <label [htmlFor]="[id,'number-mpn-check']" class="checkbox-p">Номер устройства (MPN)</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="popup-center">
+              <div class="popup-center-top">
+                <p class="popup-center-p">Общие настройки</p>
+                <div class="check-wrapper">
+                  <input class="custom-checkbox" type="checkbox" [id]="[id,'update-check']" [name]="[id,'update-check']"
+                         [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['update-check']:false:false"
+                         (change)="isCheckBoxChecked(id,$event)"
+                         value="update">
+                  <label [htmlFor]="[id,'update-check']" class="checkbox-p">Обновить принудительно</label>
+                  <img [src]="Info">
+                </div>
+                <div class="check-wrapper"><input class="custom-checkbox" type="checkbox" [id]="[id,'position-check']"
+                                                  [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['position-check']:false:false"
+                                                  (change)="isCheckBoxChecked(id,$event)"
+                                                  [name]="[id,'position-check']"
+                                                  value="position">
+                  <label [htmlFor]="[id,'position-check']" class="checkbox-p">Загрузить позиции «В наличии» и «Под
+                    заказ»</label>
+                  <img [src]="Info">
+                </div>
+              </div>
+              <div class="popup-center-bottom">
+                <p class="popup-center-p">Статус товаров, которых нет в файле</p>
+                <div class="flex small">
+                  <input class="custom-radio" type="radio"
+                         (change)="isRadioButtonChecked(id,$event)"
+                         [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['product-status']==='noChange':false:false"
+                         [id]="[id,'product-status','3']" value="noChange"
+                         [name]="[id,'product-status']"
+                  >
+                  <label [htmlFor]="[id,'product-status','3']" class="checkbox-p">Оставить без изменений</label></div>
+                <div class="flex small">
+                  <input class="custom-radio" type="radio" [id]="[id,'product-status','4']"
+                         [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['product-status']==='notAvailable':false:false"
+                         (change)="isRadioButtonChecked(id,$event)"
+                         [name]="[id,'product-status']"
+                         value="notAvailable">
+                  <label [htmlFor]="[id,'product-status','4']" class="checkbox-p">Нет в наличии</label></div>
+                <div class="flex small">
+                  <input class="custom-radio" type="radio" [id]="[id,'product-status','5']"
+                         (change)="isRadioButtonChecked(id,$event)"
+                         [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['product-status']==='hidden':false:false"
+                         [name]="[id,'product-status']" value="hidden">
+                  <label [htmlFor]="[id,'product-status','5']" class="checkbox-p">Скрытые</label></div>
+                <div class="flex small">
+                  <input class="custom-radio" type="radio" [id]="[id,'product-status','6']"
+                         [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['product-status']==='deleted':false:false"
+                         (change)="isRadioButtonChecked(id,$event)"
+                         [name]="[id,'product-status']" value="deleted">
+                  <label [htmlFor]="[id,'product-status','6']" class="checkbox-p">Удаленные</label></div>
+              </div>
+            </div>
+            <div class="popup-bottom">
+              <div class="popup-bottom-top">
+                <p class="popup-center-p">Автоматическое обновление ссылки</p>
+                <div class="flex small">
+                  <input class="custom-radio" (change)="isRadioButtonChecked(id,$event)" type="radio"
+                         [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['auto-update']==='never':false:false"
+                         [id]="[id,'auto-update','7']" [name]="[id,'auto-update']"
+                         value="never">
+                  <label [htmlFor]="[id,'auto-update','7']" class="checkbox-p">Никогда</label>
+                </div>
+                <div class="flex small">
+                  <input class="custom-radio" type="radio" [id]="[id,'auto-update','8']" [name]="[id,'auto-update']"
+                         [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['auto-update']==='hour':false:false"
+                         (change)="isRadioButtonChecked(id,$event)"
+                         value="hour">
+                  <label [htmlFor]="[id,'auto-update','8']" class="checkbox-p">Раз в 4 часа</label>
+                </div>
+                <div class="flex small">
+                  <input class="custom-radio" type="radio" [id]="[id,'auto-update','9']" [name]="[id,'auto-update']"
+                         [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['auto-update']==='day':false:false"
+                         (change)="isRadioButtonChecked(id,$event)"
+                         value="day">
+                  <label [htmlFor]="[id,'auto-update','9']" class="checkbox-p">Раз в день</label>
+                </div>
+                <div class="flex small">
+                  <input class="custom-radio" type="radio" [id]="[id,'auto-update','10']" [name]="[id,'auto-update']"
+                         [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['auto-update']==='week':false:false"
+                         (change)="isRadioButtonChecked(id,$event)"
+                         value="week">
+                  <label [htmlFor]="[id,'auto-update','10']" class="checkbox-p">Раз в неделю</label>
+                </div>
+                <div class="flex small">
+                  <input class="custom-radio" type="radio" [id]="[id,'auto-update','11']" [name]="[id,'auto-update']"
+                         [defaultChecked]="inputValue?inputValue[id]?inputValue[id]['auto-update']==='month':false:false"
+                         (change)="isRadioButtonChecked(id,$event)"
+                         value="month">
+                  <label [htmlFor]="[id,'auto-update','11']" class="checkbox-p">Раз в месяц</label>
+                </div>
+              </div>
+              <div class="popup-bottom-bottom">
+                <button class="import-top-btn-white" (click)="resetSetting(id,$event)">Сбросить все</button>
+                <button class="import-top-btn" (click)="saveSetting(id,$event)">Сохранить настройки</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

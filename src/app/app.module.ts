@@ -7,7 +7,6 @@ import { HeaderComponent } from './components/shared/header/header.component';
 import { SideBarComponent } from './components/shared/side-bar/side-bar.component';
 import { LoginationComponent } from './components/logination/logination/logination.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import { AuthInterceptor } from './services/auth.interceptor';
 import { ProductListComponent } from './components/pages/product-list/product-list.component';
 import {TokenInterceptor} from './services';
 import { ProductCardComponent } from './components/pages/product-list/product-card/product-card.component';

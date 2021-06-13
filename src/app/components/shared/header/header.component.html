@@ -27,6 +27,7 @@
   <div class="header__right">
     <div class="header__square">
       <img src="assets/img/header/Basket.svg">
+      <div [ngClass]="order?'header__circle order':'none'">{{order}}</div>
     </div>
     <div class="header__square">
       <img src="assets/img/header/Message.svg">

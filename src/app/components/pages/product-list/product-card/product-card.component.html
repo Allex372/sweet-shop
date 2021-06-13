@@ -11,8 +11,8 @@
         <div class="card__color">{{el.name}}</div>
         <div class="card__color">{{el.description}}</div>
       </div>
-      <div class="button__wishlist" (click)="addToWishList($event, el._id)">
-        <img [src]="wishStyle?'assets/img/product-card/On.svg':'assets/img/product-card/Off.svg'">
+      <div class="button__wishlist" (click)="addToWishList($event, el)">
+        <img [src]="el.status?'assets/img/product-card/On.svg':'assets/img/product-card/Off.svg'">
         <p>Wishlist</p>
       </div>
       <div class="button__view">

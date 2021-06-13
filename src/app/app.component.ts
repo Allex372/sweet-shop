@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'sweet-shop';
+
+  mass(data: any): void {
+    console.log(data);
+  }
 }
