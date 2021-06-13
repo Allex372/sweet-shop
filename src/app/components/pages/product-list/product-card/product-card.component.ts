@@ -9,16 +9,22 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class ProductCardComponent implements OnInit {
 
+  wishStyle: false;
+
   constructor(private authService: AuthService, private router: Router, private activatedRouter: ActivatedRoute) {
   }
 
   @Input()
   data;
 
-  // tslint:disable-next-line:typedef
-
   ngOnInit(): void {
   }
 
 
+  addToWishList(e: Event, id: number): void {
+    // @ts-ignore
+    this.wishStyle = !this.wishStyle;
+    console.log(this.wishStyle);
+    console.log(this.data);
+  }
 }

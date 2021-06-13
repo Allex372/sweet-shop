@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {SidebarMenuItems} from '../../../constants/sidebar-Menu-items';
+import {SidebarSubmenuItems} from '../../../constants/Sideba-Submenu-Items';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-side-bar',
@@ -8,24 +11,25 @@ import {SidebarMenuItems} from '../../../constants/sidebar-Menu-items';
 })
 export class SideBarComponent implements OnInit {
 
-  sidebar = SidebarMenuItems;
-
-  arrowState1 = false;
-  arrowState2 = false;
-  arrowState3 = false;
-  arrowState = false;
+  items = SidebarMenuItems;
+  subItems = SidebarSubmenuItems;
 
 
-  constructor() {
+  constructor(
+    private router: Router,
+  ) {}
+
+  ngOnInit(): void {}
+
+
+  arrowClick(item): void {
+    item.arrowState = !item.arrowState;
+    console.log(item);
   }
 
-  ngOnInit(): void {
+  navigateTo(item: any): void {
+    this.router.navigate([item.link]);
   }
 
-  arrowClick(e: Event, id): void {
-    if (id === 1){
-      this.arrowState = !this.arrowState;
-      console.log(this.arrowState);
-    }
-  }
 }
+

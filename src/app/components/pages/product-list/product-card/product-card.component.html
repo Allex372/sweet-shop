@@ -1,21 +1,23 @@
-<div class="card__flex" *ngFor="let el of data" [id]="el._id">
-  <div class="card__img card__color" *ngFor="let photo of el.photos">
-    <img [src]="photo">
-  </div>
-  <div class="card__flex-inside">
-    <div class="card__stars card__color">stars</div>
-<!--    <div class="card__price card__color" *ngFor="let _price of price">{{_price}}</div>-->
-  </div>
-  <div class="card__description">
-<!--    <div class="card__color" *ngFor="let _name of name">{{_name}}</div>-->
-<!--    <div class="card__color" *ngFor="let _description of description">{{_description}}</div>-->
-  </div>
-  <div class="button__wishlist">
-    <img src="assets/img/product-card/Off.svg">
-    <p>Wishlist</p>
-  </div>
-  <div class="button__view">
-    <img src="assets/img/header/Basket.svg">
-    <p>View in card</p>
+<div class="wrapper">
+  <div class="card__flex" *ngFor="let el of data" [id]="el._id">
+      <div class="card__img card__color" *ngFor="let photo of el.photos">
+        <img [src]="photo">
+      </div>
+      <div class="card__flex-inside">
+        <div class="card__stars card__color">stars</div>
+        <div class="card__price card__color">{{el.price}}</div>
+      </div>
+      <div class="card__description">
+        <div class="card__color">{{el.name}}</div>
+        <div class="card__color">{{el.description}}</div>
+      </div>
+      <div class="button__wishlist" (click)="addToWishList($event, el._id)">
+        <img [src]="wishStyle?'assets/img/product-card/On.svg':'assets/img/product-card/Off.svg'">
+        <p>Wishlist</p>
+      </div>
+      <div class="button__view">
+        <img src="assets/img/header/Basket.svg">
+        <p>View in card</p>
+      </div>
   </div>
 </div>

@@ -85,7 +85,6 @@
 .bottom{
   &__flex{
     width: 193px;
-    height: 32px;
     display: flex;
     margin: 0 auto;
     align-items: center;
@@ -97,12 +96,16 @@
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    line-height: 17px;
+    line-height: 31px;
     color: #232323;
     border-radius: 4px;
     background: #FFFFFF;
   }
 
+  &__flex-column{
+    display: flex;
+    flex-direction: column;
+  }
   &__flex-background{
     background: #EEEDFE;
     border-radius: 4px;
@@ -112,13 +115,17 @@
     flex-direction: column;
   }
   &__flex-left{
-    width: 91%;
+    img{
+      padding-right: 20px;
+    }
+    width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     text-align: center;
     background: #FFFFFF;
   }
+
 
   &__flex-right{
     width: 30%;
@@ -128,7 +135,6 @@
     display: block;
     float: right;
     cursor: pointer;
-    padding-right: 20px;
     background: #FFFFFF;
   }
 
@@ -146,13 +152,17 @@
     color: #232323;
     float: left;
   }
+  &__wrapper-flex-col{
+    display: flex;
+    flex-direction: column;
+  }
   &__drop-down-none{
     display: none;
   }
   &__drop-down-inside{
     display: flex;
     justify-content: flex-start;
-    padding-left: 60px;
+    padding-left: 41px;
     width: 193px;
     height: 32px;
     border-radius: 4px;

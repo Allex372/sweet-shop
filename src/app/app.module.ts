@@ -12,7 +12,6 @@ import { ProductListComponent } from './components/pages/product-list/product-li
 import {TokenInterceptor} from './services';
 import { ProductCardComponent } from './components/pages/product-list/product-card/product-card.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +20,7 @@ import { ProductCardComponent } from './components/pages/product-list/product-ca
     routingComponents,
     LoginationComponent,
     ProductListComponent,
-    ProductCardComponent
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule,

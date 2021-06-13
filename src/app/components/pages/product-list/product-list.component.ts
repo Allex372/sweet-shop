@@ -11,6 +11,7 @@ import constants from '../../../constants/constants';
 export class ProductListComponent implements OnInit{
 
   data: null;
+  newPath: string;
   photos: [];
 
   ngOnInit(): boolean {
@@ -30,9 +31,10 @@ constructor(private authService: AuthService, private router: Router, private ac
       // @ts-ignore
       for (const datum of this.data) {
         for (const photos of datum.photos) {
-          const newPath = constants.URL + '/' + photos;
-          console.log(newPath);
+          this.newPath = constants.URL + '/' + photos;
         }
+        datum.photos.push(this.newPath);
+        datum.photos.splice(0, 1);
       }
     });
   }
