@@ -81,10 +81,10 @@
                     <div class="input-flex-inside">
                       <input type="text" (input)="setLinkInfo($event,newLink)" [name]="[id,'supplier-name']"
                              class="input2"
-                             placeholder="Название поставщика *">
+                             placeholder="Название товару *">
                       <input type="text" (input)="setLinkInfo($event,newLink)" [name]="[id,'supplier-resource']"
                              class="input2 right-input"
-                             placeholder="Ресурс поставщика *">
+                             placeholder="Опис товару *">
                     </div>
                     <div>
                       <button class="delete-icon" [disabled]="inputValue[id]['newLinks'].length<=1"

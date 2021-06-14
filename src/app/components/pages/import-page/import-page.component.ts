@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import * as uuid from 'uuid';
+import {ImportService, ProductsService} from '../../../services';
 
 // @ts-ignore
 import Info from '../../../../assets/img/import/Info.svg';
@@ -13,6 +14,7 @@ import Delete from '../../../../assets/img/import/Delet.svg';
 import Close from '../../../../assets/img/import/Close.svg';
 // @ts-ignore
 import Info_black from '../../../../assets/img/import/Info-black.svg';
+import {logger} from 'codelyzer/util/logger';
 
 
 @Component({
@@ -104,7 +106,7 @@ export class ImportPageComponent implements OnInit {
     console.log(e.target.value);
   }
 
-  import(e: Event, id: any): void {
+  async import(e: Event, id: any): Promise<void> {
     e.preventDefault();
     let data;
     const value = {...this.inputValue[id]};
@@ -125,7 +127,6 @@ export class ImportPageComponent implements OnInit {
       // tslint:disable-next-line:no-unused-expression
       value['download-radio-button'] && delete value['download-radio-button'];
       data = {...value, links};
-      console.log(data);
     }
     if (value['download-radio-button']) {
       const files = [];
@@ -144,10 +145,18 @@ export class ImportPageComponent implements OnInit {
       // tslint:disable-next-line:no-unused-expression
       value['download-radio-button'] && delete value['download-radio-button'];
       data = {...value, files};
-      console.log(data);
 
+      // @ts-ignore
+      console.log(data.files[0]);
+      // @ts-ignore
+      const newData = JSON.stringify(files.file);
+      // console.log(string);
+      const formData = new FormData();
+      // @ts-ignore
+      formData.append('data', data.files[0].file);
+      // @ts-ignore
+      const result = await ProductsService.importProducts(formData);
     }
-
   }
 
   removeImport(e: Event, id: any): void {

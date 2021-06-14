@@ -18,4 +18,10 @@ export class ProductsService {
     return  await axios.get(`${constants.URL}/${constants.products}`);
   }
 
+  // tslint:disable-next-line:typedef
+  static async importProducts(data) {
+    const [result] = await Promise.all([axios.post(`${constants.URL}/${constants.products}`, data)]);
+    return result;
+  }
+
 }

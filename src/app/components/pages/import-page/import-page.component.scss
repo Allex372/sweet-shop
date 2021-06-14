@@ -317,12 +317,13 @@
   text-decoration: underline;
   font-size: 14px;
   margin-right: 5px;
+  background-color: #FFFFFF;
 }
 
 .input1 {
   outline: none;
   width: 100%;
-  background: #F7F7F7;
+  background: #fff;
   border-radius: 6px;
   border: none;
   padding: 10px 80px 11px 0;
@@ -396,7 +397,7 @@ input::placeholder {
 .input2 {
   height: 36px;
   width: 210px;
-  background: #F7F7F7;
+  background: #fff;
   border-radius: 6px;
   border: none;
 }
