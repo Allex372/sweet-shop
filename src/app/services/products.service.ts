@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import axios from 'axios';
 import constants from '../constants/constants';
 import {AuthService} from './auth.service';
+import {Observable} from 'rxjs';
 
 
 @Injectable({
@@ -13,9 +14,8 @@ export class ProductsService {
   constructor(private httpClient: HttpClient, private authService: AuthService) {
   }
 
-  // tslint:disable-next-line:typedef
-  static async getAllProducts(){
-    return  await axios.get(`${constants.URL}/${constants.products}`);
+  getAllProducts(): Observable<any> {
+    return this.httpClient.get<any>(`${constants.URL}/${constants.products}`);
   }
 
   // tslint:disable-next-line:typedef

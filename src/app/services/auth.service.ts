@@ -25,15 +25,14 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {
   }
 
-  // @ts-ignore
-  async login(body: {email: FormControl; password: FormControl }): void {
-    const data = await axios.post(`${constants.URL}/auth`, body);
-    this.setTokens(data.data);
+  login(body: { email: FormControl; password: FormControl }): Observable<IToken> {
+    console.log(body);
+    return this.httpClient.post<IToken>(`http://localhost:5000/auth/`, body).pipe(tap((tokens: IToken) => this.setTokens(tokens)));
   }
 
   refreshToken(): Observable<IToken> {
     console.log('***refresh token***');
-    return this.httpClient.post<IToken>(`${constants.URL}/auth`, {token: this.getRefreshToken()})
+    return this.httpClient.post<IToken>(`${constants.URL}/auth/refresh`, {token: this.getRefreshToken()})
       .pipe(
         tap((tokens: IToken) => this.setTokens(tokens))
       );
@@ -66,6 +65,7 @@ export class AuthService {
 
   private setTokens(tokens: IToken): void {
     const {access_token, refresh_token} = tokens;
+    console.log(tokens);
     this.setAccessToken(access_token);
     this.setRefreshToken(refresh_token);
   }

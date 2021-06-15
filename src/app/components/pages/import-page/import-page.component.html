@@ -79,12 +79,15 @@
                   </div>
                   <div class="input-flex">
                     <div class="input-flex-inside">
-                      <input type="text" (input)="setLinkInfo($event,newLink)" [name]="[id,'supplier-name']"
+                      <input type="text" (input)="setLinkInfo($event,newLink)" [name]="[id,'name']"
                              class="input2"
                              placeholder="Название товару *">
-                      <input type="text" (input)="setLinkInfo($event,newLink)" [name]="[id,'supplier-resource']"
+                      <input type="text" (input)="setLinkInfo($event,newLink)" [name]="[id,'description']"
                              class="input2 right-input"
                              placeholder="Опис товару *">
+                      <input type="text" (input)="setLinkInfo($event,newLink)" [name]="[id,'price']"
+                             class="input2 right-input"
+                             placeholder="Ціна *">
                     </div>
                     <div>
                       <button class="delete-icon" [disabled]="inputValue[id]['newLinks'].length<=1"
@@ -122,12 +125,15 @@
                   </div>
                   <div class="input-flex">
                     <div class="input-flex-inside">
-                      <input type="text" (input)="setInputOnFIle($event,id,newFile)" [name]="[id,'supplier-name']"
+                      <input type="text" (input)="setInputOnFIle($event,id,newFile)" [name]="[id,'name']"
                              class="input2"
                              placeholder="Название поставщика *">
-                      <input type="text" (input)="setInputOnFIle($event,id,newFile)" [name]="[id,'supplier-resource']"
+                      <input type="text" (input)="setInputOnFIle($event,id,newFile)" [name]="[id,'description']"
                              class="input2 right-input"
                              placeholder="Ресурс поставщика *">
+                      <input type="text" (input)="setInputOnFIle($event,id,newFile)" [name]="[id,'price']"
+                             class="input2 right-input"
+                             placeholder="Ціна *">
                     </div>
                     <div>
                       <button class="delete-icon" [disabled]="inputValue[id]['newFile'].length<=1"

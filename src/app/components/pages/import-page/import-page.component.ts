@@ -147,13 +147,17 @@ export class ImportPageComponent implements OnInit {
       data = {...value, files};
 
       // @ts-ignore
-      console.log(data.files[0]);
+      console.log(data.files[0].name);
       // @ts-ignore
       const newData = JSON.stringify(files.file);
       // console.log(string);
       const formData = new FormData();
       // @ts-ignore
       formData.append('data', data.files[0].file);
+      formData.append('name', data.files[0].name);
+      formData.append('price', data.files[0].price);
+      formData.append('description', data.files[0].description);
+
       // @ts-ignore
       const result = await ProductsService.importProducts(formData);
     }

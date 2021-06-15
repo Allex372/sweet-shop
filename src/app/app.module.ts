@@ -8,8 +8,9 @@ import { SideBarComponent } from './components/shared/side-bar/side-bar.componen
 import { LoginationComponent } from './components/logination/logination/logination.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ProductListComponent } from './components/pages/product-list/product-list.component';
-import {TokenInterceptor} from './services';
+import {TokenInterceptorService} from './services';
 import { ProductCardComponent } from './components/pages/product-list/product-card/product-card.component';
+
 
 @NgModule({
   declarations: [
@@ -29,8 +30,8 @@ import { ProductCardComponent } from './components/pages/product-list/product-ca
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
       multi: true,
-      useClass: TokenInterceptor,
     }
   ],
   bootstrap: [AppComponent],

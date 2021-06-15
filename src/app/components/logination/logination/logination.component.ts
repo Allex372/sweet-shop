@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ILogin, IToken} from '../../../models';
 import {AuthService, UserService} from '../../../services';
@@ -42,7 +42,7 @@ export class LoginationComponent implements OnInit {
   Send(e: Event): void {
     e.preventDefault();
     const user = {email: this.email, password: this.password};
-    this.authService.login(user);
+    this.authService.login(user).subscribe(value => console.log(value));
   }
 
   forgotLink(): void {

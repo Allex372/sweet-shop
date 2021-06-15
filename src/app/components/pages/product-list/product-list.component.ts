@@ -2,15 +2,16 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AuthService, ProductsService} from '../../../services';
 import constants from '../../../constants/constants';
+import {logger} from 'codelyzer/util/logger';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnInit{
+export class ProductListComponent implements OnInit {
 
-  data: null;
+  data: [];
   newPath: string;
   photos: [];
 
@@ -26,20 +27,23 @@ export class ProductListComponent implements OnInit{
     return true;
   }
 
-constructor(private authService: AuthService, private router: Router, private activatedRouter: ActivatedRoute) {}
+  // tslint:disable-next-line:max-line-length
+  constructor(private ProductService: ProductsService, private authService: AuthService, private router: Router, private activatedRouter: ActivatedRoute) {
+  }
 
   private getData(): void {
-    ProductsService.getAllProducts().then((value) => {
-      this.data = value.data;
-
-      // @ts-ignore
-      for (const datum of this.data) {
-        for (const photos of datum.photos) {
-          this.newPath = constants.URL + '/' + photos;
-        }
-        datum.photos.push(this.newPath);
-        datum.photos.splice(0, 1);
-        datum.wishStatus = false;
+    this.ProductService.getAllProducts().subscribe(value => {
+      console.log(value);
+      for (const obj of value) {
+        // for (const photos of obj.photos) {
+        //   this.newPath = constants.URL + '/' + photos;
+        // }
+        // console.log(obj);
+        // obj.photos.push(this.newPath);
+        // obj.photos.splice(0, 1);
+        // obj.wishStatus = false;
+        // this.data.push(obj);
+        this.data = value;
       }
     });
   }

@@ -9,7 +9,7 @@ import {catchError, switchMap} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class TokenInterceptor implements HttpInterceptor {
+export class TokenInterceptorService implements HttpInterceptor {
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -51,6 +51,7 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
+    console.log(token);
     return req.clone({setHeaders: {Authorization: `${token}`}});
   }
 
